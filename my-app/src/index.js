@@ -10,7 +10,7 @@ import reducers from './index/reducers/index';
 const store = createStore(reducers);
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <App update={(item)=>{}}/>
     </Provider>
     , document.getElementById('root'));
 registerServiceWorker();

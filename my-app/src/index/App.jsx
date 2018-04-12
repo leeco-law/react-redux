@@ -4,6 +4,13 @@ import './App.css';
 import * as actions from './actions/index';
 import { connect } from 'react-redux';
 class App extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      recentContactList: []
+    };
+  }
+
   render() {
     let recentContactList = this.props.recentContactList || [];
     return (
@@ -18,7 +25,8 @@ class App extends Component {
         <ul>
           {
             recentContactList.map((item, index) => {
-              return <li key={index} item={item}> {JSON.stringify(item)} </li>;
+              return <li key={index} item={item} 
+                onClick={this.updateContact.bind(this, index, item, this.props.update)}> {JSON.stringify(item)} </li>;
             })
           }
         </ul>
@@ -28,9 +36,26 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.setState({ ...nextProps });
     console.log("currentProps:", this.props)
     console.log("nextProps:", nextProps);
   }
+
+  updateContact(index, item,callback) {
+    console.log("index:", index);
+    console.log("item:", item);
+    item.name = "443";
+    this.setState({
+      "recentContactList": this.state.recentContactList.map((it, idx) => {
+        if (idx == index) {
+          return item;
+        }
+        return it;
+      })
+    });
+    callback(item);
+  }
+
   componentWillMount() {
     let { dispatch } = this.props;
     dispatch(actions.listRecentContactList());
