@@ -18,13 +18,18 @@ class App extends Component {
         <ul>
           {
             recentContactList.map((item, index) => {
-              return <li key={index}> {JSON.stringify(item)} </li>;
+              return <li key={index} item={item}> {JSON.stringify(item)} </li>;
             })
           }
         </ul>
         <button onClick={this.addContact.bind(this)}>New</button>
       </div>
     );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("currentProps:", this.props)
+    console.log("nextProps:", nextProps);
   }
   componentWillMount() {
     let { dispatch } = this.props;
