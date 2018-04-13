@@ -4,11 +4,12 @@ import './App.css';
 import * as actions from './actions/index';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Viewer from './Viewer';
 
 class App extends Component {
   constructor(props, context) {
     super(props, context);
-
+    this.state = { ...props };
   }
 
   static defaultProps = {
@@ -17,6 +18,8 @@ class App extends Component {
 
   render() {
     const { recentContactList } = this.props;
+    const recentContactListView = this.state.recentContactList;
+    let recentContact = recentContactListView[0];
     return (
       <div className="App">
         <header className="App-header">
@@ -27,7 +30,10 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <button onClick={this.addContact.bind(this)}>New</button>
-        <div style={{ height: "400px", overflow: "auto" }}>
+        <button onClick={this.cleanContact.bind(this)}>Clean</button>
+        <button onClick={this.submit.bind(this)}>Submint</button>
+        <h2>Edit Area</h2>
+        <div style={{ height: "200px", overflow: "auto" }}>
           <ul>
             {
               recentContactList.map((item, index) => {
@@ -47,17 +53,32 @@ class App extends Component {
             }
           </ul>
         </div>
+        <h2>View Area</h2>
+        <Viewer />
       </div>
     );
   }
 
   componentWillReceiveProps(nextProps) {
-    //this.setState({ ...nextProps });
+    // this.setState({ ...nextProps });
     console.log("currentProps:", this.props)
     console.log("nextProps:", nextProps);
 
   }
 
+  /**
+   * 触发清空action
+   */
+  cleanContact() {
+    let { dispatch } = this.props;
+    dispatch(actions.cleanContact());
+  }
+
+  /**
+   * 更新指定联系人
+   * @param {当前数据所在索引} index 
+   * @param {当前数据字段名} key 
+   */
   updateContact(index, key) {
     return (event) => {
       const { dispatch, recentContactList } = this.props;
@@ -76,7 +97,18 @@ class App extends Component {
 
   componentWillMount() {
     let { dispatch } = this.props;
-    dispatch(actions.listRecentContactList());
+    let data = [{
+      "name": "一成",
+      "sessionId": 112898,
+      "age": 18
+    }];
+    dispatch(actions.listRecentContactList(data));
+  }
+
+  submit() {
+    let { dispatch, recentContactList } = this.props;
+    console.log("submit action.");
+    dispatch(actions.submit(recentContactList));
   }
 
   addContact() {
@@ -84,7 +116,8 @@ class App extends Component {
     console.log("add action.");
     dispatch(actions.addContact({
       "name": "二成",
-      "sessionId": 112899
+      "sessionId": 112899,
+      "age": 189
     }));
   }
 }
