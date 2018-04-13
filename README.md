@@ -7,3 +7,4 @@
 1. npm install --save redux
 1. npm install --save react-redux
 1. npm install --save redux-thunk
+1. npm run eject

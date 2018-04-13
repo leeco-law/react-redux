@@ -16,6 +16,10 @@ export default function index(state = defaultState, action = defaultAction) {
                 return { ...state, recentContactList: [...state.recentContactList, action.data] }
             }
             break
+        case actions.UPDATE_CONTACT:
+            if (action.data) {
+                return { ...state, recentContactList: action.data }
+            }
         default:
             break
     }
