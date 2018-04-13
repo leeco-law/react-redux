@@ -26,7 +26,10 @@ export default function index(state = defaultState, action = defaultAction) {
             return { ...state, recentContactList: [] }
             break;
         case actions.SUBMIT:
-            return { ...state, recentContactList: action.data }
+            if (action.data) {
+                console.log(action.data);
+                return { ...state, recentContactList: action.data }
+            }
             break;
         default:
             break
