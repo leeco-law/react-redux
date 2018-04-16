@@ -20,6 +20,7 @@
         }
     }
 ```
+1. npm install -g nodemon
 1. yarn add concurrently
 ```
  "scripts": {
@@ -29,6 +30,7 @@
     "build": "concurrently 'yarn react-build' 'cd server && yarn build'",
   }
 ```
+1. npm install babel-cli -g
 1. "proxy": "http://127.0.0.1:5000"
 
 
