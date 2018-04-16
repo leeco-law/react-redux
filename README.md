@@ -9,6 +9,8 @@
 1. npm install --save redux-thunk
 1. npm run eject
 1. mkdir server && cd server && yarn init
+1. yarn create react-app my-app
+1. yarn add redux react-redux react-dom prop-types redux-thunk
 1. yarn add express body-parser nodemon babel-cli babel-preset-es2015
 1. 修改package.json，增加npm scripts
 ```
